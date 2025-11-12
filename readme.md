@@ -32,7 +32,7 @@
 ## Запуск
 
 1. Установите зависимости:
-go get -u github.com/gin-gonic/gin
-go get -u github.com/jung-kurt/gofpdf
+- go get -u github.com/gin-gonic/gin
+- go get -u github.com/jung-kurt/gofpdf
 2. Запустите сервер:
-go run cmd/api/main.go
+- go run cmd/api/main.go
