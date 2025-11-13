@@ -14,7 +14,7 @@ import (
 )
 
 func main() {
-	repo, err := repository.NewRepository("storage/tasks.json")
+	repo, err := repository.NewRepository("./storage/tasks.json")
 	if err != nil {
 		log.Fatalf("Failed to init storage: %v", err)
 	}

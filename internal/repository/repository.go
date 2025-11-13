@@ -98,7 +98,7 @@ func (r *repository) saveToFile() error {
 		Storage: r.storage,
 	}
 
-	file, err := os.OpenFile(r.filePath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
+	file, err := os.OpenFile(r.filePath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
 	if err != nil {
 		return err
 	}
@@ -110,7 +110,14 @@ func (r *repository) saveToFile() error {
 }
 
 func (r *repository) loadFromFile() error {
-	file, err := os.OpenFile(r.filePath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
+	_, err := os.Stat(r.filePath)
+	if os.IsNotExist(err) {
+		r.storage = make(map[int]*models.Task)
+		r.curId = 0
+		return r.saveToFile()
+	}
+
+	file, err := os.OpenFile(r.filePath, os.O_RDONLY, 0644)
 	if err != nil {
 		return err
 	}

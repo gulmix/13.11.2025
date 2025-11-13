@@ -1,0 +1,31 @@
+{
+ "cur_id": 2,
+ "storage": {
+  "1": {
+   "id": 1,
+   "links": [
+    "google.com",
+    "malformedlink.gg"
+   ],
+   "results": {
+    "google.com": "available",
+    "malformedlink.gg": "not available"
+   },
+   "created_at": "2025-11-14T00:13:57.6918106+03:00",
+   "status": "completed"
+  },
+  "2": {
+   "id": 2,
+   "links": [
+    "gg.c",
+    "yandex.ru"
+   ],
+   "results": {
+    "gg.c": "not available",
+    "yandex.ru": "available"
+   },
+   "created_at": "2025-11-14T00:14:22.728694+03:00",
+   "status": "completed"
+  }
+ }
+}
