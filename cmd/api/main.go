@@ -14,9 +14,12 @@ import (
 )
 
 func main() {
-	repo := repository.NewRepository()
-	svc := service.NewService(repo)
-	r := http.NewRouter(svc)
+	repo, err := repository.NewRepository("storage/tasks.json")
+	if err != nil {
+		log.Fatalf("Failed to init storage: %v", err)
+	}
+	checkerService := service.NewCheckerService(repo)
+	r := http.NewRouter(checkerService)
 
 	srv := &netHttp.Server{
 		Addr:    ":8080",
@@ -39,4 +42,9 @@ func main() {
 	if err := srv.Shutdown(ctx); err != nil {
 		log.Printf("Server forced shutdown: %v", err)
 	}
+	if err := checkerService.Shutdown(5 * time.Second); err != nil {
+		log.Printf("Service shutdown error: %v", err)
+	}
+
+	log.Println("Server stopped gracefully")
 }

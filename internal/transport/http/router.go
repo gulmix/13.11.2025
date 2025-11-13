@@ -7,14 +7,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func NewRouter(svc *service.Service) *gin.Engine {
+func NewRouter(checkerService *service.CheckerService) *gin.Engine {
 	r := gin.Default()
-	h := handlers.NewHandler(svc)
+
+	pdfGenerator := service.NewGenerator()
+	handler := handlers.NewHandler(checkerService, pdfGenerator)
 
 	api := r.Group("/api/v1")
 	{
-		api.POST("/check", h.CheckLinks)
-		api.POST("/report", h.GetReport)
+		api.POST("/check", handler.CheckLinks)
+		api.POST("/report", handler.GenerateReport)
 	}
 
 	return r
